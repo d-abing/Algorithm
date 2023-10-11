@@ -1,19 +1,16 @@
 from sys import stdin
 input = stdin.readline
 
-n, m = map(int, input().split())
-A = [[0] * (n + 1)]
-D = [[0] * (n + 1) for _ in range(n + 1)]
+N, M = map(int, input().split())
+numbers = [[0] * (N + 1)]
 
-for i in range(n):
-    A_row = [0] + [int(x) for x in input().split()]
-    A.append(A_row)
+for _ in range(N):
+    line = list(map(int, input().split()))
+    numbers.append([0] + line)
 
-for i in range(1, n + 1):
-    for j in range(1, n + 1):
-        D[i][j] = D[i][j-1] + D[i-1][j] - D[i-1][j-1] + A[i][j]
+for i in range(N * N):
+    numbers[i // N + 1][i % N + 1] = numbers[i // N][i % N + 1] + numbers[i // N + 1][i % N] - numbers[i // N][i % N] + numbers[i // N + 1][i % N + 1]
 
-for _ in range(m):
+for i in range(M):
     x1, y1, x2, y2 = map(int, input().split())
-    result = D[x2][y2] - D[x1-1][y2] - D[x2][y1-1] + D[x1-1][y1-1]
-    print(result)
+    print(numbers[x2][y2] - numbers[x1 - 1][y2] - numbers[x2][y1 - 1] + numbers[x1 - 1][y1 - 1])
