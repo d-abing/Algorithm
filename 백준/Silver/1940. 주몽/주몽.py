@@ -3,11 +3,12 @@ input = stdin.readline
 
 N = int(input())
 M = int(input())
-materials = list(map(int, input().split()))
-result = 0
+numbers = list(map(int, input().split()))
 
-for i in range(N - 1):
-    if (M - materials[i]) in materials[i + 1:]:
-        result += 1
+count = 0
 
-print(result)
+for i in range(N):
+    target_num = M - numbers[i]
+    count += numbers[i + 1:].count(target_num)
+
+print(count)
