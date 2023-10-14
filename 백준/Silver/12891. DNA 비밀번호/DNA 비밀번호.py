@@ -1,38 +1,47 @@
-import sys
-input = sys.stdin.readline
+from sys import stdin
+
+input = stdin.readline
 
 S, P = map(int, input().split())
-str_dna = input().replace("\n", "")
-dna = "ACGT"
-list_min = list(map(int, input().split()))
-dict_min = {}
-dict_minus = {}
-result = 0
+dna_str = input()
+minimums = list(map(int, input().split()))
 
-for i in range(len(dna)):
-    dict_min[dna[i]] = list_min[i]
+i = 0
+j = P
 
-def count_bases(string):
-    base_count = {'A': 0, 'C': 0, 'G': 0, 'T': 0}
-    for base in string:
-        if base in base_count:
-            base_count[base] += 1
-    return base_count
+counts = list()
+counts.append(dna_str[i:j].count('A') - minimums[0])
+counts.append(dna_str[i:j].count('C') - minimums[1])
+counts.append(dna_str[i:j].count('G') - minimums[2])
+counts.append(dna_str[i:j].count('T') - minimums[3])
 
-dict_count = count_bases(str_dna[0: P])
+count = 0
 
-for i in dict_min:
-    dict_minus[i] = dict_count[i]- dict_min[i]
+while j <= S:
+    if counts[0] >= 0 and counts[1] >= 0 and counts[2] >= 0 and counts[3] >= 0:
+        count += 1
 
-first_letter = ""
+    if j == S:
+        break
 
-for i in range(S - P + 1):
-    first_letter = str_dna[i: i + P][0]
-    if not any(value < 0 for value in dict_minus.values()) :
-        result += 1
-    if i != S - P :
-        dict_minus[first_letter] -= 1
-        dict_minus[str_dna[P + i]] += 1
+    if dna_str[i] == 'A':
+        counts[0] -= 1
+    elif dna_str[i] == 'C':
+        counts[1] -= 1
+    elif dna_str[i] == 'G':
+        counts[2] -= 1
+    elif dna_str[i] == 'T':
+        counts[3] -= 1
+    i += 1
 
+    if dna_str[j] == 'A':
+        counts[0] += 1
+    elif dna_str[j] == 'C':
+        counts[1] += 1
+    elif dna_str[j] == 'G':
+        counts[2] += 1
+    elif dna_str[j] == 'T':
+        counts[3] += 1
+    j += 1
 
-print(result)
+print(count)
