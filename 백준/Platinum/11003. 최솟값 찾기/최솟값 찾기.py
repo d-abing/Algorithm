@@ -1,15 +1,22 @@
-import sys
+from sys import stdin
 from collections import deque
-input = sys.stdin.readline
+
+input = stdin.readline
 
 N, L = map(int, input().split())
 numbers = list(map(int, input().split()))
-deque = deque()
+
+min_dq = deque()
 
 for i in range(N):
-    while deque and deque[-1][0] > numbers[i]:
-        deque.pop()
-    deque.append((numbers[i], i))
-    if deque[0][1] <= i - L:
-        deque.popleft()
-    print(deque[0][0], end=" ")
+    while len(min_dq) > 0:
+        pop_value = min_dq.pop()
+        if numbers[i] <= pop_value[1]:
+            continue
+        else:
+            min_dq.append(pop_value)
+            break
+    min_dq.append([i, numbers[i]])
+    if i >= L and min_dq[0][0] <= i - L:
+        min_dq.popleft()
+    print(str(min_dq[0][1]), end=" ")
