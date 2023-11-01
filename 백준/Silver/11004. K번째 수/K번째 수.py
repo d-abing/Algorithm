@@ -21,6 +21,7 @@ def quicksort(start, end, k):
 def partition(start, end):
     global A
 
+    # TODO 이 부분이 왜 필수로 들어가야 하는 지 다시 공부할 것
     if start + 1 == end:
         if A[start] > A[end]:
             A[start], A[end] = A[end], A[start]
