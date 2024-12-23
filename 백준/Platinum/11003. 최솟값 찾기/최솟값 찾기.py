@@ -17,6 +17,6 @@ for i in range(N):
             min_dq.append(pop_value)
             break
     min_dq.append([i, numbers[i]])
-    if i >= L and min_dq[0][0] <= i - L:
+    if min_dq[0][0] <= i - L:
         min_dq.popleft()
     print(str(min_dq[0][1]), end=" ")
