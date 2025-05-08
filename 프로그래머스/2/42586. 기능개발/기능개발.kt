@@ -19,15 +19,14 @@ class Solution {
             if (current <= previous) {
                 count++
             } else {
-                answer = answer.plus(count)
+                answer = answer + count
                 count = 1
                 previous = current
             }
-
             days.removeAt(0)
         }
 
-        answer = answer.plus(count)
+        answer = answer + count
         return answer
     }
 }
